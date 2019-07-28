@@ -39,6 +39,6 @@ class profileController extends Controller
 
         Mail::to($request['email'])->send(new WelcomeMail($user));
         $user->save();
-        return back()->with("message", "Data updated successfully");;
+        return back()->with("message", "Data updated successfully");
     }
 }

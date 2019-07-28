@@ -10,21 +10,14 @@
     </div>
 @endif
 
-<h2>Update your profile</h2>
+<h2>Edit Comment</h2>
 @include("partials.navbar")
 
-<form method="POST" action="/profile/update" enctype="multipart/form-data">
+<form method="POST" action="/comment/update/{{$comment->id}}" >
     @method('PUT')
     {{ csrf_field() }}
 
-    <input type="text" name="name"  value="{{ $user->name }}" />
-    <br>
-
-    <input type="email" name="email"  value="{{ $user->email }}" />
-    <br>
-    <input type="password" name="password" placeholder="MUST type a password"/>
-    <br>
-    <input type="file" name="photo" value="{{ $user->photo }}" >
+    <textarea name="content" rows="4" cols="50"> {{$comment->content}} </textarea>
     <br>
     <input type="submit" name="submit" value="Save changes">
     @include('partials.formerrors')

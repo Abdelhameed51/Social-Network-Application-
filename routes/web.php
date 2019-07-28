@@ -32,12 +32,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/post/create','postController@create')->name('post.create');
     Route::post('/post/store', 'postController@store')->name('post.store');
     Route::get('/posts', 'postController@getPosts')->name('post.get');
+    Route::get('/post/show/{id}', 'postController@show')->name('post.show');
     Route::put('/post/update/{id}', 'postController@update')->name('post.update');
     Route::get('/post/delete/{id}', 'postController@delete')->name('post.delete');
 
     //comments routes
     Route::post('/comment/store/{id}', 'commentController@store')->name('comment.store');
     Route::get('/comments/{id}', 'commentController@getComments')->name('comments.get');
+    Route::get('/comment/show/{id}', 'commentController@show')->name('comment.show');
     Route::put('/comment/update/{id}', 'commentController@update')->name('comment.update');
     Route::get('/comment/delete/{id}', 'commentController@delete')->name('comment.delete');
 

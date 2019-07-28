@@ -33,9 +33,22 @@ class postController extends Controller
 
         return view('post.create', compact('posts',$posts), compact('comments',$comments));
     }
-    public function update($id)
+    public function show($id)
     {
-        return "اتقل شويه..".$id;
+        $post = Post::findOrFail($id);
+        return view('post.edit', compact('post', $post));
+    }
+    public function update(Request $request, $id)
+    {
+        $this->validate(request(), [
+            'content'=>'required'
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->content = $request->get('content');
+        $post->save();
+
+        return redirect()->to('/posts');
     }
     public function delete($id)
     {

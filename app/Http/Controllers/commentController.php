@@ -16,6 +16,7 @@ class commentController extends Controller
         $comment = new Comment();
         $comment->content = $request->get('content');
         $comment->post_id = $post_id;
+        $comment->user_id = auth()->user()->id;
 
         $comment->save();
         return redirect()->to('/posts');
@@ -26,9 +27,22 @@ class commentController extends Controller
         $comment->delete();
         return back();
     }
-    public function update($id)
+    public function show($id)
     {
-        return "اتقل شويه..".$id;
+        $comment = Comment::findOrFail($id);
+        return view('post.comment.edit', compact('comment', $comment));
+    }
+    public function update(Request $request, $id)
+    {
+        $this->validate(request(), [
+            'content'=>'required'
+        ]);
+
+        $comment = Comment::findOrFail($id);
+        $comment->content = $request->get('content');
+        $comment->save();
+
+        return redirect()->to('/posts');
     }
     /*public function getComments($id)
     {

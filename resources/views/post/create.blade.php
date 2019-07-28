@@ -31,12 +31,14 @@
                         <tr>
                             <td>{{ $post->content }}</td>
                             <td>{{ $post->created_at }}</td>
-                            <td>
-                                <a href="{{ route('post.update', $post->id) }}" class="btn btn-primary">Edit</a>
-                            </td>
-                            <td>
-                                <a href="{{ route('post.delete', $post->id) }}" class="btn btn-primary">Delete</a>
-                            </td>
+                            @if($post->user_id == auth()->user()->id)
+                                <td>
+                                    <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary">Edit</a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('post.delete', $post->id) }}" class="btn btn-primary">Delete</a>
+                                </td>
+                            @endif
                         </tr>
                     </tbody>
                 </table>
@@ -48,14 +50,17 @@
                         @if( $comment->post_id == $post->id)
                             <tbody>
                             <tr>
+                                <td><a href="#">{{ \App\User::find($comment->user_id)->name}} </a></td>
                                 <td>{{ $comment->content }}</td>
                                 <td>{{ $comment->created_at }}</td>
-                                <td>
-                                    <a href="{{ route('comment.update', $comment->id) }}" class="btn btn-primary">Edit</a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('comment.delete', $comment->id) }}" class="btn btn-primary">Delete</a>
-                                </td>
+                                @if($comment->user_id == auth()->user()->id)
+                                    <td>
+                                        <a href="{{ route('comment.show', $comment->id) }}" class="btn btn-primary">Edit</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('comment.delete', $comment->id) }}" class="btn btn-primary">Delete</a>
+                                    </td>
+                                 @endif
                             </tr>
                             </tbody>
                         @endif
